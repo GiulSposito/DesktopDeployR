@@ -5,13 +5,13 @@ library(shinydashboard)
 dashboardPage(
   
   ### HEADER
-  dashboardHeader(title="Itau Jira Dashboard"),
+  dashboardHeader(title="Jira Dashboard"),
   
   ### SIDEBAR ###############
   dashboardSidebar(
     sidebarMenu(
       menuItem("Dependencias", tabName = "dependency", icon = icon("sitemap")),
-      menuItem("Widgets", tabName = "settings", icon = icon("cog"))
+      menuItem("Configuracoes", tabName = "settings", icon = icon("cogs"))
     )
   ),
   
@@ -22,7 +22,8 @@ dashboardPage(
     tabItems(
       
       # First tab content
-      tabItem(tabName = "dependency",
+      tabItem(
+        tabName = "dependency",
         fluidRow(box(plotOutput("plot1"), width = 11)),
         fluidRow(box(
           title = "Filtros",
@@ -31,8 +32,24 @@ dashboardPage(
       ),
       
       # Second tab content
-      tabItem(tabName = "settings",
-              h2("Widgets tab content")
+      tabItem(
+        tabName = "settings",
+        fluidPage(
+          title="Configuracoes",
+          box(
+            title="Autorizacao e Autenticacao no Jira",
+            textInput("jira.url", "Jira URL", .settings$jira$baseUrl),
+            textInput("project.key", "Project Key", "EFCA"),
+            textInput("username", "Usuario", .settings$jira$user),
+            passwordInput("password", "Senha", .settings$jira$pswd),
+            actionButton("login", "Entrar")
+          ),
+          box(
+            title="Status",
+            textOutput("login.status"),
+            textOutput("project.status")
+          )
+        )
       )
       
       

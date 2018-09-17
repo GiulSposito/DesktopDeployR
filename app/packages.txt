@@ -9,3 +9,5 @@ jsonlite
 
 # if deploying shiny based applications:
 shiny
+yaml
+shinydashboard

@@ -8,4 +8,15 @@ server <- function(input, output) {
     data <- histdata[seq_len(input$slider)]
     hist(data, col="red")
   })
+  
+  # action do botao
+  observeEvent(input$login,{
+    print(paste0("login: ", input$login))
+    if(input$login==1){
+      output$login.status = "Nenhum Usuario Logado"
+      output$project.status = "Nenhum Projeto Importado"
+    } else {
+      
+    }
+  })
 }
