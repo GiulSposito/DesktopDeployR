@@ -57,7 +57,15 @@ dashboardPage(
       
       tabItem(
         tabName = "tabledep",
-        fillPage( title="Tabela de Dependencias",DT::dataTableOutput("dtdep", height = "90%"))
+        box(
+          title = "Tabela de Dependencias", status = "primary",
+          height = "580px", width = "12", 
+          column(
+            width = 12,
+            DT::dataTableOutput("dtdep"),
+            style = "height:520px; overflow-y: scroll;overflow-x: scroll;"
+          )
+        )
       )
 
     )
