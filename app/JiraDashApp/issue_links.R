@@ -4,6 +4,9 @@ library(lubridate)
 library(igraph)    # manipulacao de grafos
 library(tidygraph) # visualizacoes de redes
 library(ggraph)    # visualizacoes de redes
+library(purrr)
+library(tibble)
+library(tidyr)
 source("./browseIssues.R")
 source("./jira_fields.R")
 
