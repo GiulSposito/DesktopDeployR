@@ -1,6 +1,7 @@
 ## ui.R ##
 library(shiny)
 library(shinydashboard)
+library(DT)
 
 dashboardPage(
   
@@ -11,7 +12,8 @@ dashboardPage(
   dashboardSidebar(
     sidebarMenu(
       menuItem("Importacao", tabName = "settings", icon = icon("cogs")),
-      menuItem("Mapa Dependencias", tabName = "dependency", icon = icon("sitemap"))
+      menuItem("Mapa Dependencias", tabName = "dependency", icon = icon("sitemap")),
+      menuItem("Tabela de Dependencias", tabName = "tabledep", icon = icon("table"))
     )
   ),
   
@@ -51,9 +53,13 @@ dashboardPage(
             textOutput("project.status")
           )
         )
+      ),
+      
+      tabItem(
+        tabName = "tabledep",
+        fillPage( title="Tabela de Dependencias",DT::dataTableOutput("dtdep", height = "90%"))
       )
-      
-      
+
     )
   )
 )

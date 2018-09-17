@@ -9,6 +9,7 @@ jsonlite
 
 # if deploying shiny based applications:
 shiny
+stringi
 yaml
 httr
 shinydashboard
@@ -22,3 +23,4 @@ magrittr
 purrr
 tibble
 tidyr
+DT

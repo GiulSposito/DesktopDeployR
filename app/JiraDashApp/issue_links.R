@@ -28,7 +28,7 @@ extractDependency <- function(page) {
 # extrai issue e issue types
 extractIssueTypes <- function(page){
   page$issues %>% 
-    select(key, fields.issuetype.name) %>% 
+    select(key, fields.summary, fields.issuetype.name, fields.issuetype.iconUrl) %>% 
     as.tibble() %>% 
     return()
 }
@@ -45,6 +45,37 @@ getIssueLinks <- function(url, key, user, pswd) {
   print("got issues")
   return(us.json)
 }
+
+tableDependency <- function(us.json){
+
+  # percorre as issues extraindo e concatenando as dependencias
+  links <- lapply(us.json, extractDependency) %>%
+    bind_rows() %>%
+    distinct()
+  
+  issue.types <- lapply(us.json, extractIssueTypes) %>%
+    bind_rows() %>%
+    distinct()
+  
+  
+  links %>% 
+    left_join(issue.types, by="key") %>%
+    mutate(
+      issue.key  = paste0("<a href='",self,"' target='_blank'>",key,"</a>"),
+      issue.type = paste0("<span><img src='",fields.issuetype.iconUrl,"' width=20 height=20>",fields.issuetype.name,"</span>"),
+      depends.key  = paste0("<a href='",inwardIssue.self,"' target='_blank'>",inwardIssue.key,"</a>"),
+      depends.type = paste0("<span><img src='",inwardIssue.fields.issuetype.iconUrl,"' width=20 height=20>",inwardIssue.fields.issuetype.name,"</span>")
+    ) %>% 
+    select(issue.key, issue.type, summary=fields.summary,
+           link.type = type.inward,
+           depends.key, depends.type, depends.summary=inwardIssue.fields.summary,
+           depends.status = inwardIssue.fields.status.name) %>%
+    DT::datatable(escape = F) %>% 
+    return()
+  
+  
+  
+  }
 
 plotDependency <- function(us.json){
   
