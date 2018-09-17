@@ -30,11 +30,16 @@ extractIssueTypes <- function(page){
 }
 
 getIssueLinks <- function(url, key, user, pswd) {
-
+  
+  print("getIssues")
+  
   # stories terminadas 
   jql <- paste0("project=",key," and resolution = Unresolved and issuetype in standardIssueTypes()")
   us.json <- searchIssues(url, jql, c(.jirafields$risk,"issuelinks"),
                           userAuth = getUserAuth(user,pswd))
+  
+  print("got issues")
+  return(us.json)
 }
 
 # # percorre as issues extraindo e concatenando as dependencias
