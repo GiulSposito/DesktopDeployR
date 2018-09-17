@@ -40,7 +40,7 @@ dashboardPage(
           box(
             title="Autorizacao e Autenticacao no Jira",
             textInput("jira.url", "Jira URL", .settings$jira$baseUrl),
-            textInput("project.key", "Project Key", "EFCA"),
+            textInput("project.key", "Project Key", .settings$jira$key),
             textInput("username", "Usuario", .settings$jira$user),
             passwordInput("password", "Senha", .settings$jira$pswd),
             actionButton("login", "Entrar")
