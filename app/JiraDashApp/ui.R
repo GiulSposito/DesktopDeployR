@@ -26,8 +26,8 @@ dashboardPage(
         tabName = "dependency",
         fluidRow(box(plotOutput("plot1"), width = 11)),
         fluidRow(box(
-          title = "Filtros",
-          sliderInput("slider","Numero de observacoes",1,100,50)
+            title = "Filtros",
+            sliderInput("slider","Numero de observacoes",1,100,50)
         ))
       ),
       

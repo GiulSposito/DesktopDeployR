@@ -29,13 +29,18 @@ server <- function(input, output, session) {
     
     if(length(issues)>0){
       num.imported <- issues$page.0$total
+      
       project.status <- paste0("Projeto '",input$project.key,"' importado!")
     } 
     
+    #output$numimported <- num.imported
     output$login.status   <- renderText(paste0("issues importadas: ", num.imported))
     output$project.status <- renderText(project.status)
   })
 
   output$login.status   <- renderText(paste0("issues importadas: ", num.imported))
   output$project.status <- renderText(project.status)
+  
+  #output$numimported <- num.imported
+  #outputOptions(output, "numimported", suspendWhenHidden = FALSE)
 }
