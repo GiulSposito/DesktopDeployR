@@ -13,3 +13,9 @@ yaml
 httr
 shinydashboard
 RCurl
+ggraph
+tidygraph
+igraph
+lubridate
+dplyr
+magrittr

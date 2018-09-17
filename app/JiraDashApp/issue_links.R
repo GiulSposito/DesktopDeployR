@@ -1,4 +1,5 @@
-library(tidyverse)
+library(dplyr)
+library(magrittr)
 library(lubridate)
 library(igraph)    # manipulacao de grafos
 library(tidygraph) # visualizacoes de redes
