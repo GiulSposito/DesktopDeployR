@@ -6,6 +6,10 @@ server <- function(input, output, session) {
   histdata <- rnorm(500)
   print("server")
   
+  num.imported <- 0
+  project.status <- "Nenhum projeto importado"
+  
+  
   output$plot1 <- renderPlot({
     print("plot")
     data <- histdata[seq_len(input$slider)]
@@ -20,16 +24,18 @@ server <- function(input, output, session) {
   # action do botao
   observeEvent(input$login,{
     print(paste0("login: ", input$login))
+
     issues <- loadIssues()
     
     if(length(issues)>0){
       num.imported <- issues$page.0$total
-    } else {
-      num.imported <- 0
-    }
+      project.status <- paste0("Projeto '",input$project.key,"' importado!")
+    } 
     
-    output$login.status <- renderText(paste0("issues importadas: ", num.imported))
+    output$login.status   <- renderText(paste0("issues importadas: ", num.imported))
+    output$project.status <- renderText(project.status)
   })
 
-  
+  output$login.status   <- renderText(paste0("issues importadas: ", num.imported))
+  output$project.status <- renderText(project.status)
 }

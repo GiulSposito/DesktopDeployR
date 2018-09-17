@@ -46,7 +46,7 @@ searchIssues <- function(base.url, jql, fields=NULL, userAuth=getUserAuth(),
     # retorna erro caso tenha ocorrido
     if (resp$status_code!=200) {
       print(paste0("api https error: ",resp$status_code," GET: ",url))
-      stop(resp)
+      stop(resp$status_code)
     }
     
     # get reply

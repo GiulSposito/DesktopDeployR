@@ -10,8 +10,8 @@ dashboardPage(
   ### SIDEBAR ###############
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Dependencias", tabName = "dependency", icon = icon("sitemap")),
-      menuItem("Configuracoes", tabName = "settings", icon = icon("cogs"))
+      menuItem("Importacao", tabName = "settings", icon = icon("cogs")),
+      menuItem("Mapa Dependencias", tabName = "dependency", icon = icon("sitemap"))
     )
   ),
   
