@@ -1,6 +1,7 @@
 library(shiny)
+source("./issue_links.R")
 
-server <- function(input, output) {
+server <- function(input, output, session) {
   set.seed(42) # the life, the universe and everything else
   histdata <- rnorm(500)
   
@@ -10,13 +11,13 @@ server <- function(input, output) {
   })
   
   # action do botao
-  observeEvent(input$login,{
+  myjson <- eventReactive(input$login,{
     print(paste0("login: ", input$login))
-    if(input$login==1){
-      output$login.status = "Nenhum Usuario Logado"
-      output$project.status = "Nenhum Projeto Importado"
-    } else {
-      
-    }
+    issues <- getIssueLinks(input$jira.url, input$project.key,  
+                            input$username, input$password)
+    # output$login.status = renderText( paste0("Issues Importated: ", length(issues) ) )
+    # issues
   })
+
+  json <- myjson()
 }

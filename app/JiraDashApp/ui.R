@@ -44,10 +44,13 @@ dashboardPage(
             passwordInput("password", "Senha", .settings$jira$pswd),
             actionButton("login", "Entrar")
           ),
-          box(
-            title="Status",
-            textOutput("login.status"),
-            textOutput("project.status")
+          conditionalPanel(
+            condition="session.userData.loggedIn==TRUE",
+            box(
+              title="Status",
+              textOutput("login.status"),
+              textOutput("project.status")
+            )
           )
         )
       )

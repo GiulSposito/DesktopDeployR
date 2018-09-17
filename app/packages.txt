@@ -10,4 +10,6 @@ jsonlite
 # if deploying shiny based applications:
 shiny
 yaml
+httr
 shinydashboard
+RCurl
