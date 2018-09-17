@@ -10,8 +10,8 @@ dashboardPage(
   ### SIDEBAR ###############
   dashboardSidebar(
     sidebarMenu(
-      menuItem("Dashboard", tabName = "dashboard", icon = icon("dashboard")),
-      menuItem("Widgets", tabName = "widgets", icon = icon("th"))
+      menuItem("Dependencias", tabName = "dependency", icon = icon("sitemap")),
+      menuItem("Widgets", tabName = "settings", icon = icon("cog"))
     )
   ),
   
@@ -22,7 +22,7 @@ dashboardPage(
     tabItems(
       
       # First tab content
-      tabItem(tabName = "dashboard",
+      tabItem(tabName = "dependency",
         fluidRow(box(plotOutput("plot1"), width = 11)),
         fluidRow(box(
           title = "Filtros",
@@ -31,7 +31,7 @@ dashboardPage(
       ),
       
       # Second tab content
-      tabItem(tabName = "widgets",
+      tabItem(tabName = "settings",
               h2("Widgets tab content")
       )
       
