@@ -2,6 +2,8 @@ library(shiny)
 library(DT)
 source("./issue_links.R")
 
+
+
 server <- function(input, output, session) {
   set.seed(42) # the life, the universe and everything else
   histdata <- rnorm(500)

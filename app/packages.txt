@@ -8,8 +8,9 @@
 jsonlite
 
 # if deploying shiny based applications:
-shiny
 stringi
+lubridate
+shiny
 yaml
 httr
 shinydashboard
@@ -17,7 +18,6 @@ RCurl
 ggraph
 tidygraph
 igraph
-lubridate
 dplyr
 magrittr
 purrr
