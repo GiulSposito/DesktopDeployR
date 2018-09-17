@@ -10,11 +10,11 @@ server <- function(input, output, session) {
   project.status <- "Nenhum projeto importado"
   
   
-  output$plot1 <- renderPlot({
-    print("plot")
-    data <- histdata[seq_len(input$slider)]
-    hist(data, col="red")
-  })
+  # output$plot1 <- renderPlot({
+  #   print("plot")
+  #   if(num.imported==0) return(NULL)
+  #   plotDependency(loadIssues())
+  # })
   
   loadIssues <- reactive(
     getIssueLinks(input$jira.url, input$project.key,  
@@ -29,18 +29,15 @@ server <- function(input, output, session) {
     
     if(length(issues)>0){
       num.imported <- issues$page.0$total
-      
       project.status <- paste0("Projeto '",input$project.key,"' importado!")
+      output$plot1 <- renderPlot(plotDependency(issues))
     } 
     
-    #output$numimported <- num.imported
     output$login.status   <- renderText(paste0("issues importadas: ", num.imported))
     output$project.status <- renderText(project.status)
   })
 
   output$login.status   <- renderText(paste0("issues importadas: ", num.imported))
   output$project.status <- renderText(project.status)
-  
-  #output$numimported <- num.imported
-  #outputOptions(output, "numimported", suspendWhenHidden = FALSE)
+
 }

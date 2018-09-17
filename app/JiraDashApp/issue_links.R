@@ -42,33 +42,37 @@ getIssueLinks <- function(url, key, user, pswd) {
   return(us.json)
 }
 
-# # percorre as issues extraindo e concatenando as dependencias
-# links <- lapply(us.json, extractDependency) %>% 
-#   bind_rows() %>% 
-#   distinct()
-# 
-# issue.types <- lapply(us.json, extractIssueTypes) %>% 
-#   bind_rows() %>% 
-#   distinct()
-# 
-# # cria "from","to"
-# links %>% 
-#   select( 
-#     from = key,
-#     to = inwardIssue.key
-#   ) %>%
-#   bind_cols(links) %>% # mantem "atributos" do link nos edges
-#   as_tbl_graph() %>% 
-#   activate(nodes) %>% 
-#   left_join(issue.types, by=c("name"="key")) -> dependencies # convert para um grafo
-# 
-# # plot
-# dependencies %>% 
-#   ggraph(layout = "kk") + 
-#   geom_edge_fan(aes(color=type.inward),
-#                 edge_width=1,
-#                 arrow = arrow(type = "closed", angle = 10, length = unit(5,units="mm"))) +
-#   geom_node_point(aes(color=fields.issuetype.name),alpha=0.3, size=8) +
-#   geom_node_text(aes(label=name)) +
-#   theme_void()
-# 
+plotDependency <- function(us.json){
+  
+  # percorre as issues extraindo e concatenando as dependencias
+  links <- lapply(us.json, extractDependency) %>%
+    bind_rows() %>%
+    distinct()
+  
+  issue.types <- lapply(us.json, extractIssueTypes) %>%
+    bind_rows() %>%
+    distinct()
+  
+  # cria "from","to"
+  links %>%
+    select(
+      from = key,
+      to = inwardIssue.key
+    ) %>%
+    bind_cols(links) %>% # mantem "atributos" do link nos edges
+    as_tbl_graph() %>%
+    activate(nodes) %>%
+    left_join(issue.types, by=c("name"="key")) -> dependencies # convert para um grafo
+  
+  # plot
+  p <- dependencies %>%
+    ggraph(layout = "kk") +
+    geom_edge_fan(aes(color=type.inward),
+                  edge_width=1,
+                  arrow = arrow(type = "closed", angle = 10, length = unit(5,units="mm"))) +
+    geom_node_point(aes(color=fields.issuetype.name),alpha=0.3, size=8) +
+    geom_node_text(aes(label=name)) +
+    theme_void()
+  
+  return(p)
+}

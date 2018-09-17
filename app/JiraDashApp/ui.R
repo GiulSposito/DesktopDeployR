@@ -24,11 +24,12 @@ dashboardPage(
       # First tab content
       tabItem(
         tabName = "dependency",
-        fluidRow(box(plotOutput("plot1"), width = 11)),
-        fluidRow(box(
-            title = "Filtros",
-            sliderInput("slider","Numero de observacoes",1,100,50)
-        ))
+        fluidPage(
+          fluidRow(
+            box(plotOutput("plot1",height = 600), width = 11, height = 640)
+          )
+        )
+        
       ),
       
       # Second tab content
@@ -44,13 +45,10 @@ dashboardPage(
             passwordInput("password", "Senha", .settings$jira$pswd),
             actionButton("login", "Entrar")
           ),
-          conditionalPanel(
-            condition="session.userData.loggedIn==TRUE",
-            box(
-              title="Status",
-              textOutput("login.status"),
-              textOutput("project.status")
-            )
+          box(
+            title="Status",
+            textOutput("login.status"),
+            textOutput("project.status")
           )
         )
       )
